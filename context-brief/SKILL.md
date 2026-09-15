@@ -1,13 +1,13 @@
 ---
 name: context-brief
-description: Maintain a compact handoff brief for long-running work. Use when opening a new conversation, continuing prior work, summarizing progress, completing work, handing off to another agent, or deciding whether project context should be updated.
+description: Maintain a compact handoff brief for long-running work across Agent products. Use when opening a new conversation, continuing prior work, summarizing progress, completing work, handing off to another agent, or deciding whether project context should be updated.
 ---
 
 # Context Brief
 
-Use this skill to keep a short continuity brief for long-running work. The brief helps the next agent understand the project direction without rereading the full conversation or every source file.
+Use this skill to keep a short continuity brief for long-running work across Agent products. The brief helps the next agent or tool environment understand the project direction without rereading the full conversation or every source file.
 
-When using this skill, tell the user that `context-brief` is being used, will be used, or may be useful for review, summary, handoff, or context update work. If the update is optional, ask briefly whether they want the brief updated before writing it.
+When using this skill, tell the user that `context-brief` is being used, will be used, or may be useful for review, summary, handoff, or context update work. If the update is optional, ask briefly whether they want the brief updated before writing it. This applies in Codex, DSH, Cursor, Claude Code, Harness-style products, and other Agent environments that can read project rules or workflow instructions.
 
 ## Use cases
 
@@ -19,6 +19,10 @@ Use this skill in these situations:
 - User-requested context update: update when the user confirms the brief should be changed.
 
 Do not update the brief for small wording edits, one-off explanations, or routine answers that do not affect future work. Avoid forcing an update after every conversation; update only when it improves continuity.
+
+## Product compatibility
+
+This skill is platform-neutral. In Codex, it can be installed as a normal Skill. In Cursor, Claude Code, DSH, Harness-style products, 龙虾, or similar Agent products, use the `SKILL.md` content as project rules, system prompt material, workflow instructions, or shared knowledge. The required behavior is the same: read the brief before continuing work, update it only when it improves future continuity, and keep formal project details in their source documents.
 
 ## Handoff brief
 
