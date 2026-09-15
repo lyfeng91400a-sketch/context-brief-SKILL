@@ -1,0 +1,3 @@
+interface:
+  display_name: "Context Brief"
+  short_description: "Maintain compact handoff notes for long-running work"
