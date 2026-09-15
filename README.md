@@ -1,48 +1,65 @@
 # context-brief Skill
 
-`context-brief` is a lightweight agent skill for long-running projects. It keeps a compact handoff brief so a future conversation or another agent can understand the project direction without reading the whole chat history or every source document.
+`context-brief` 是一个用于长期任务续接的 Codex Skill。它会维护一份简短的交接说明，让新窗口或另一个 Agent 快速了解项目背景、关键决策、重要文件和下一步方向，避免每次都重新阅读完整对话和所有文档。
 
-Use it when work spans multiple conversations, multiple agents, or several documents. The skill is designed to reduce context cost: it reads or updates one short brief first, then routes the agent to only the files needed for the current task.
+它适合用在跨窗口、跨 Agent、跨多轮讨论的工作中。核心思路是：先读一份短说明，再按当前任务读取必要文件，减少上下文消耗，也减少信息遗漏。
 
-## What it does
+## 它解决什么问题
 
-- Creates or updates a concise project handoff Markdown file.
-- Records confirmed decisions, file routes, role boundaries, next steps, and risks.
-- Avoids copying full chat history or duplicating formal documents.
-- Reminds the agent to ask before optional updates, instead of rewriting the brief after every turn.
-- Tells the user when the skill is being used for review, summary, handoff, or context update work.
+- 长任务换窗口后，Agent 不知道前因后果。
+- 项目文件越来越多，每次都读全量文档会浪费 token。
+- 多个 Agent 协作时，容易重复判断、遗漏约定或使用过期口径。
+- 用户在多轮讨论中确认过的决策，没有沉淀成可复用的上下文。
 
-## Recommended use
+## 适合什么时候用
 
-Use `context-brief` at the start of a new conversation when the user wants to continue previous work. The agent should read the brief first, then open only the source files needed for the current request.
+- 新窗口继续旧任务时，先读取交接说明。
+- 用户说“总结”“完成”“收尾”“交接”“下次继续”时，更新交接说明。
+- 本轮对话产生了关键决策、重要文件、架构变化、角色边界变化或下一步调整时，询问用户是否需要更新。
+- 项目需要多人或多 Agent 协作，希望统一上下文入口时。
 
-Use it at the end of work when the user asks to summarize, wrap up, complete, hand off, or continue later. If the conversation changed important decisions, files, architecture, role boundaries, or next steps, the agent can ask whether the brief should be updated.
+普通问答、小范围改写、一次性解释通常不需要更新交接说明。
 
-Routine answers, small wording edits, and one-off explanations usually do not need an update.
+## 交接说明应该写什么
 
-## Install locally in Codex
+交接说明只保留会影响后续工作的内容：
 
-Copy the `context-brief` folder into your Codex skills directory:
+- 当前背景和项目方向。
+- 用户已经确认的决策。
+- 必须保持一致的术语、角色边界、架构假设和命名。
+- 文件路由：什么任务应该读取哪些文件。
+- 可能的下一步工作。
+- 需要避免的错误、风险和用户偏好。
+
+不要把完整聊天记录、详细推理过程、长示例或正式文档正文复制进去。已有内容应链接到源文件。
+
+## 建议的文档长度
+
+交接说明建议控制在 60-90 行。超过 100 行时，先压缩旧内容，再补充新内容。优先替换过期信息，不要一直追加。
+
+## 安装到本地 Codex
+
+把 `context-brief` 文件夹复制到本地 Codex skills 目录：
 
 ```bash
 mkdir -p ~/.codex/skills
 cp -R context-brief ~/.codex/skills/
 ```
 
-Restart Codex if the skill does not appear automatically.
+如果 Codex 没有立即识别，可以重启 Codex。
 
-## Install for a project
+## 安装到项目中
 
-For a repository or shared workspace, copy the skill into the project skills directory:
+如果希望同一个项目里的 Agent 都使用这套续接规则，可以放到项目目录：
 
 ```bash
 mkdir -p .agents/skills
 cp -R context-brief .agents/skills/
 ```
 
-Project-level installation is useful when all agents working in the same repository should share the same continuity workflow.
+项目级安装适合团队协作、共享工作区和需要统一上下文规则的场景。
 
-## Structure
+## 目录结构
 
 ```text
 context-brief/
@@ -51,4 +68,8 @@ context-brief/
     └── openai.yaml
 ```
 
-`SKILL.md` contains the skill instructions and trigger description. `agents/openai.yaml` provides optional UI metadata for Codex.
+`SKILL.md` 是 Skill 的主体说明，包含触发场景、交接说明的写法和检查规则。`agents/openai.yaml` 是 Codex 的展示信息。
+
+## 一句话介绍
+
+`context-brief` 用一份短交接文档承接长期任务，让新窗口或新 Agent 先掌握项目全貌，再按需读取相关文件，减少重复沟通和 token 消耗。
