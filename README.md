@@ -2,7 +2,7 @@
 
 `context-brief` 是一个用于长期任务续接的通用 Agent Skill。它维护一份简短的交接说明，让新窗口、新 Agent 或新的工具环境快速了解项目背景、关键决策、重要文件和下一步方向，避免每次都重新阅读完整对话和所有文档。
 
-这个 Skill 不绑定某一个产品。它可以用于 Codex、DSH、Cursor、龙虾、Claude Code、Harness，以及其他支持自定义规则、项目说明、system prompt、agent skill 或知识文件的 Agent 产品。
+这个 Skill 可以用于 Codex、DSH、Cursor、龙虾、Claude Code、Harness，以及其他支持自定义规则、项目说明、system prompt、agent skill 或知识文件的 Agent 产品。
 
 ## 核心思路
 
